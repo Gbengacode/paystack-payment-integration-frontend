@@ -6,7 +6,7 @@ import SuccessPage from '@/app/component/Success'
 const ConfirmPage = () => {
   const [showSucces, setShowSuccess] = useState(false)
   const searchParams = useSearchParams()
-  const referenceId = searchParams.get('reference')
+  const referenceId = searchParams.get('trxref')
   const getPaymentStatus = async () => {
     try {
       const response = await fetch(
