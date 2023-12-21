@@ -16,8 +16,10 @@ const Payment = () => {
 
   const handleClick = async (e: React.SyntheticEvent) => {
     e.preventDefault()
+
     if (email.trim().length && phone.trim().length) {
       setIsProcessing(true)
+
       try {
         const response = await fetch(
           'https://paystack-payment-backend.onrender.com/api/accept-payment',
@@ -29,13 +31,18 @@ const Payment = () => {
             body: JSON.stringify({ email, phone })
           }
         )
+
         if (!response.ok) {
-          throw new Error('Failed to get data')
+          const errorMessage = await response.text()
+          throw new Error(`Failed to get data: ${errorMessage}`)
         }
+
         const result = await response.json()
         window.location.href = result.data.authorization_url
       } catch (error) {
-        throw new Error('Failed to get data')
+        console.error('Error during API call:', error)
+      } finally {
+        setIsProcessing(false)
       }
     }
   }
