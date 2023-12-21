@@ -14,9 +14,9 @@ const Payment = () => {
     setPhone(e.target.value)
   }
 
-  const handleClick = async (e: any) => {
+  const handleClick = async (e: React.SyntheticEvent) => {
     e.preventDefault()
-    if (email.length && phone.length) {
+    if (email.trim().length && phone.trim().length) {
       setIsProcessing(true)
       try {
         const response = await fetch(
@@ -29,8 +29,8 @@ const Payment = () => {
             body: JSON.stringify({ email, phone })
           }
         )
-        if(!response.ok){
-           throw new Error('Failed to get data')
+        if (!response.ok) {
+          throw new Error('Failed to get data')
         }
         const result = await response.json()
         window.location.href = result.data.authorization_url
@@ -90,7 +90,7 @@ const Payment = () => {
             className='bg-blue-500 w-full text-white p-2 rounded-md hover:bg-blue-600'
             disabled={isProcessing}
           >
-            {isProcessing ? 'Processing' : 'Pay'}
+            {isProcessing ? 'Processing...' : 'Pay'}
           </button>
         </div>
       </form>

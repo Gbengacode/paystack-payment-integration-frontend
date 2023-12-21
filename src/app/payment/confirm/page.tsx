@@ -25,7 +25,7 @@ const ConfirmPage = () => {
       const {
         data: { data }
       } = await response.json()
-    
+
       if (data.status === 'success') {
         setShowSuccess(true)
       }
@@ -34,7 +34,7 @@ const ConfirmPage = () => {
     }
   }
   useEffect(() => {
-    if (referenceId) {
+    if (referenceId !== "") {
       getPaymentStatus()
     }
   }, [getPaymentStatus, referenceId])
